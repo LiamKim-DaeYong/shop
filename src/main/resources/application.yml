@@ -1,0 +1,19 @@
+spring:
+  profiles:
+    default: dev
+  h2:
+    console:
+      enabled: true
+
+  datasource:
+    url: jdbc:h2:mem:shop
+    username: sa
+    password:
+    driver-class-name: org.h2.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: create
+      database-platform: org.hibernate.dialect.H2Dialect
+      use-new-id-generator-mappings: false
+      default_batch_fetch_size: 100
