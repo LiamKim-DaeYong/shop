@@ -76,8 +76,6 @@ sourceSets {
     }
 }
 
-processResources { dependsOn "copyReactBuildFiles" }
-
 task installReact(type: Exec) {
     workingDir "$frontendDir"
     inputs.dir "$frontendDir"
