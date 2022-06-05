@@ -8,6 +8,8 @@ import CssBaseline from "@mui/material/CssBaseline";
 import Main from "./pages/Main";
 import Home from "./pages/Home";
 import About from "./pages/About";
+import AdminLayout from "./layouts/AdminLayout";
+import Dashboard from "./pages/admin/Dashboard";
 
 const theme = createTheme();
 
@@ -20,6 +22,9 @@ function App() {
           <Route path="/" element={<Main />} />
           <Route path="/home" element={<Home />} />
           <Route path="/about" element={<About />} />
+        </Route>
+        <Route element={<AdminLayout />}>
+          <Route path="/admin" element={<Dashboard />} />
         </Route>
       </Routes>
     </ThemeProvider>

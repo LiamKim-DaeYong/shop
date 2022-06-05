@@ -38,6 +38,9 @@ function Header(props) {
         <Button variant="outlined" size="small">
           Sign up
         </Button>
+        <Button variant="outlined" size="small">
+          <Link href="/admin">Admin</Link>
+        </Button>
       </Toolbar>
       <Toolbar
         component="nav"
