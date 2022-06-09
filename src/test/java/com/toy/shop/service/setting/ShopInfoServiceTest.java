@@ -14,7 +14,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static com.toy.shop.domain.setting.ShopInfo.*;
 import static com.toy.shop.domain.setting.ShopInfo.createShopInfo;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
