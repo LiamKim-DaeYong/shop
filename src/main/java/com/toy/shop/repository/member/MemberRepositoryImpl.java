@@ -4,8 +4,7 @@ import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.toy.shop.domain.member.Member;
 import com.toy.shop.dto.SearchParam;
-import com.toy.shop.dto.member.MemberDto;
-import com.toy.shop.utils.PagingUtil;
+import com.toy.shop.utils.PagingUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -20,7 +19,7 @@ public class MemberRepositoryImpl implements MemberRepositoryQueryDsl {
     private final JPAQueryFactory queryFactory;
 
     @Override
-    public Page<MemberDto> findAll(SearchParam searchParam, Pageable pageable) {
+    public Page<Member> findAll(SearchParam searchParam, Pageable pageable) {
         String searchKeyword = searchParam.getSearchKeyword();
 
         JPAQuery<Member> query = queryFactory
@@ -28,7 +27,6 @@ public class MemberRepositoryImpl implements MemberRepositoryQueryDsl {
                 .where(containsEmail(searchKeyword),
                         containsName(searchKeyword));
 
-        Page<Member> page = PagingUtil.getPage(query, pageable);
-        return null;
+        return PagingUtils.getPage(query, pageable);
     }
 }

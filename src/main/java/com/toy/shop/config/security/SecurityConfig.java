@@ -18,8 +18,9 @@ public class SecurityConfig {
                 .anyRequest().permitAll()
                 .and()
 
-                .csrf().ignoringAntMatchers("/h2-console/**")
-                .and()
+//                .csrf().ignoringAntMatchers("/h2-console/**")
+                .csrf().disable()
+//                .and()
                 .headers().frameOptions().disable()
                 .and()
 

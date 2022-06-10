@@ -3,7 +3,7 @@ package com.toy.shop.utils;
 import com.querydsl.jpa.JPQLQuery;
 import com.querydsl.jpa.impl.JPAQuery;
 import lombok.AccessLevel;
-import lombok.RequiredArgsConstructor;
+import lombok.NoArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.support.PageableExecutionUtils;
@@ -12,8 +12,8 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 
 @Component
-@RequiredArgsConstructor(access = AccessLevel.PRIVATE)
-public final class PagingUtil {
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
+public final class PagingUtils {
 
     public static <T> Page<T> getPage(JPAQuery<T> query, Pageable pageable) {
         List<T> content = applyPagination(pageable, query.clone()).fetch();
