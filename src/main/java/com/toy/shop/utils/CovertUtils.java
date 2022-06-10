@@ -6,8 +6,8 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Component
 public final class CovertUtils {
@@ -23,26 +23,17 @@ public final class CovertUtils {
     }
 
     public static <D> Page<D> convertToPage(Page<?> source, Class<D> destinationType) {
-        List<D> destination = new ArrayList<>();
-
         List<?> content = source.getContent();
         Pageable pageable = source.getPageable();
         long totalElements = source.getTotalElements();
 
-        content.stream().forEach(item -> {
-            destination.add(modelMapper.map(item, destinationType));
-        });
-
-        return new PageImpl<D>(destination, pageable, totalElements);
+        return new PageImpl<>(content.stream()
+                .map(obj -> modelMapper.map(obj, destinationType))
+                .collect(Collectors.toList()), pageable, totalElements);
     }
 
     public static <D> List<D> convertToList(List<?> source, Class<D> destinationType) {
-        List<D> destination = new ArrayList<>();
-
-        source.stream().forEach(item -> {
-            destination.add(modelMapper.map(item, destinationType));
-        });
-
-        return destination;
+        return source.stream().map(obj -> modelMapper.map(obj, destinationType))
+                .collect(Collectors.toList());
     }
 }
