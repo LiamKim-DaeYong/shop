@@ -2,6 +2,7 @@ package com.toy.shop.service.member;
 
 import com.toy.shop.domain.member.Member;
 import com.toy.shop.dto.SearchParam;
+import com.toy.shop.dto.member.MemberUpdate;
 import com.toy.shop.repository.member.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -20,9 +21,20 @@ public class MemberService {
         return memberRepository.findAll(searchParam, pageable);
     }
 
+    public Member findById(Long id) {
+        return memberRepository.findById(id)
+                .orElseThrow(IllegalArgumentException::new);
+    }
+
     @Transactional
     public Long save(Member member) {
         memberRepository.save(member);
         return member.getId();
+    }
+
+    @Transactional
+    public void update(Long id, MemberUpdate memberUpdate) {
+        Member member = findById(id);
+        member.update(memberUpdate);
     }
 }

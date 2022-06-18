@@ -3,7 +3,8 @@ package com.toy.shop.api;
 import com.toy.shop.domain.member.Member;
 import com.toy.shop.dto.SearchParam;
 import com.toy.shop.dto.member.MemberDto;
-import com.toy.shop.dto.member.MemberRequest;
+import com.toy.shop.dto.member.MemberSave;
+import com.toy.shop.dto.member.MemberUpdate;
 import com.toy.shop.service.member.MemberService;
 import com.toy.shop.utils.CovertUtils;
 import lombok.RequiredArgsConstructor;
@@ -25,8 +26,14 @@ public class MemberController {
     }
 
     @PostMapping("/add")
-    public Long save(@RequestBody MemberRequest memberRequest) {
-        Member member = CovertUtils.convert(memberRequest, Member.class);
+    public Long save(@RequestBody MemberSave memberSave) {
+        Member member = CovertUtils.convert(memberSave, Member.class);
         return memberService.save(member);
+    }
+
+    @PutMapping("/{id}/update")
+    public Long update(@PathVariable Long id, MemberUpdate memberUpdate) {
+        memberService.update(id, memberUpdate);
+        return id;
     }
 }

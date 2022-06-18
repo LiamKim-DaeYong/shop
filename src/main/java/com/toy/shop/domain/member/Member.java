@@ -1,44 +1,64 @@
 package com.toy.shop.domain.member;
 
+import com.toy.shop.domain.Address;
+import com.toy.shop.domain.BaseEntity;
+import com.toy.shop.dto.member.MemberUpdate;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Comment;
+import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
+
+import static com.toy.shop.code.DBLength.*;
 
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Member {
+public class Member extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "member_id")
     private Long id;
 
-    @Column(length = 200, nullable = false)
+    @Column(length = EMAIL_LENGTH, nullable = false)
+    @Comment("이메일")
     private String email;
 
-    @Column(nullable = false)
+    @Column(length = PASSWORD_LENGTH, nullable = false)
+    @Comment("패스워드")
     private String password;
 
-    @Column(name = "member_nm", length = 20, nullable = false)
+    @Column(name = "member_nm", length = NAME_LENGTH, nullable = false)
+    @Comment("이름")
     private String name;
 
-    //================== 연관 관계 메서드 ==================//
+    @Column(length = PHONE_LENGTH, nullable = false)
+    @Comment("휴대폰 번호")
+    private String phoneNum;
 
-    //==================   생성 메서드   ==================//
-    public static Member createMember(Long id, String email, String name) {
-        Member member = new Member();
-        member.id = id;
-        member.password = "test";
-        member.email = email;
-        member.name = name;
+    @Embedded
+    private Address address;
 
-        return member;
-    }
+    @Enumerated(EnumType.STRING)
+    @Column(length = CODE_LENGTH, nullable = false)
+    @Comment("등급")
+    private Grade grade;
+
+    @Type(type = "yes_no")
+    @Column(length = 1, nullable = false)
+    @Comment("삭제 여부")
+    private boolean deleted;
 
     //==================  비즈니스 로직  ==================//
-
-    //==================   조회 메서드   ==================//
+    public void update(MemberUpdate memberUpdate) {
+        this.name = memberUpdate.getName();
+        this.phoneNum = memberUpdate.getPhoneNum();
+        this.address = new Address(memberUpdate.getZipCode(),
+                            memberUpdate.getCity(),
+                            memberUpdate.getStreet());
+        this.grade = Grade.valueOf(memberUpdate.getGrade());
+    }
 }
