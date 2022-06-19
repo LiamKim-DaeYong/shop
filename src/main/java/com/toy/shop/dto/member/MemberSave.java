@@ -31,11 +31,12 @@ public class MemberSave {
     public Member newMember(PasswordEncoder passwordEncoder) {
         return Member.newMember()
                 .email(email)
-                .password(passwordEncoder.encode(password))
+                .password(password)
                 .name(name)
                 .phoneNum(phoneNum)
                 .address(new Address(zipCode, city, street))
                 .grade(Grade.valueOf(grade.toUpperCase()))
+                .passwordEncoder(passwordEncoder)
                 .build();
     }
 }

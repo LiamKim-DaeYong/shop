@@ -6,6 +6,7 @@ import com.toy.shop.dto.member.MemberUpdate;
 import lombok.*;
 import org.hibernate.annotations.Comment;
 import org.hibernate.annotations.Type;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.persistence.*;
 
@@ -61,9 +62,10 @@ public class Member extends BaseEntity {
     //==================   생성 메서드   ==================//
     @Builder(builderMethodName = "newMember")
     public Member(@NonNull String email, @NonNull String password, @NonNull String name,
-                  @NonNull String phoneNum, Address address, @NonNull Grade grade) {
+                  @NonNull String phoneNum, Address address, @NonNull Grade grade,
+                  @NonNull PasswordEncoder passwordEncoder) {
         this.email = email;
-        this.password = password;
+        this.password = passwordEncoder.encode(password);
         this.name = name;
         this.phoneNum = phoneNum;
         this.address = address;
