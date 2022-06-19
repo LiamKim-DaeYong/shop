@@ -3,9 +3,7 @@ package com.toy.shop.domain.member;
 import com.toy.shop.domain.Address;
 import com.toy.shop.domain.BaseEntity;
 import com.toy.shop.dto.member.MemberUpdate;
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hibernate.annotations.Comment;
 import org.hibernate.annotations.Type;
 
@@ -53,12 +51,23 @@ public class Member extends BaseEntity {
     private boolean deleted;
 
     //==================  비즈니스 로직  ==================//
-    public void update(MemberUpdate memberUpdate) {
-        this.name = memberUpdate.getName();
-        this.phoneNum = memberUpdate.getPhoneNum();
-        this.address = new Address(memberUpdate.getZipCode(),
-                            memberUpdate.getCity(),
-                            memberUpdate.getStreet());
-        this.grade = Grade.valueOf(memberUpdate.getGrade());
+    public void update(String name, String phoneNum, Address address, Grade grade) {
+        this.name = name;
+        this.phoneNum = phoneNum;
+        this.address = address;
+        this.grade = grade;
+    }
+
+    //==================   생성 메서드   ==================//
+    @Builder(builderMethodName = "newMember")
+    public Member(@NonNull String email, @NonNull String password, @NonNull String name,
+                  @NonNull String phoneNum, Address address, @NonNull Grade grade) {
+        this.email = email;
+        this.password = password;
+        this.name = name;
+        this.phoneNum = phoneNum;
+        this.address = address;
+        this.grade = grade;
+        this.deleted = false;
     }
 }

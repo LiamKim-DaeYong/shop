@@ -6,7 +6,7 @@ import com.toy.shop.dto.member.MemberDto;
 import com.toy.shop.dto.member.MemberSave;
 import com.toy.shop.dto.member.MemberUpdate;
 import com.toy.shop.service.member.MemberService;
-import com.toy.shop.utils.CovertUtils;
+import com.toy.shop.utils.ConvertUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -21,14 +21,12 @@ public class MemberController {
 
     @GetMapping
     public Page<MemberDto> findAll(@RequestBody SearchParam searchParam, Pageable pageable) {
-        Page<Member> members = memberService.findAll(searchParam, pageable);
-        return CovertUtils.convertToPage(members, MemberDto.class);
+        return memberService.findAll(searchParam, pageable);
     }
 
     @PostMapping("/add")
     public Long save(@RequestBody MemberSave memberSave) {
-        Member member = CovertUtils.convert(memberSave, Member.class);
-        return memberService.save(member);
+        return memberService.save(memberSave);
     }
 
     @PutMapping("/{id}/update")

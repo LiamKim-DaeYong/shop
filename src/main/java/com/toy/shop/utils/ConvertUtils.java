@@ -1,5 +1,6 @@
 package com.toy.shop.utils;
 
+import org.modelmapper.Converter;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -10,12 +11,16 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Component
-public final class CovertUtils {
+public final class ConvertUtils {
 
     private static ModelMapper modelMapper;
 
-    private CovertUtils(ModelMapper modelMapper) {
-        CovertUtils.modelMapper = modelMapper;
+    private ConvertUtils(ModelMapper modelMapper) {
+        ConvertUtils.modelMapper = modelMapper;
+    }
+
+    public static void addConverter(Converter converter) {
+        modelMapper.addConverter(converter);
     }
 
     public static <D> D convert(Object source, Class<D> destinationType) {
