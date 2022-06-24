@@ -10,8 +10,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 import static com.toy.shop.domain.member.QMember.member;
-import static com.toy.shop.repository.member.MemberConditions.containsEmail;
-import static com.toy.shop.repository.member.MemberConditions.containsName;
+import static com.toy.shop.repository.member.MemberConditions.*;
 
 @RequiredArgsConstructor
 public class MemberRepositoryImpl implements MemberRepositoryQueryDsl {
@@ -25,7 +24,8 @@ public class MemberRepositoryImpl implements MemberRepositoryQueryDsl {
         JPAQuery<Member> query = queryFactory
                 .selectFrom(member)
                 .where(containsEmail(searchKeyword),
-                        containsName(searchKeyword));
+                        containsName(searchKeyword),
+                        isNotDeleted());
 
         return PagingUtils.getPage(query, pageable);
     }

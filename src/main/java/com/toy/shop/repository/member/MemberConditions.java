@@ -17,4 +17,8 @@ public final class MemberConditions {
     public static BooleanExpression containsName(String searchKeyword) {
         return StringUtils.hasLength(searchKeyword) ? member.name.contains(searchKeyword) : null;
     }
+
+    public static BooleanExpression isNotDeleted() {
+        return member.deleted.isFalse();
+    }
 }

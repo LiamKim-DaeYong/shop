@@ -1,15 +1,15 @@
 package com.toy.shop.api;
 
-import com.toy.shop.domain.member.Member;
 import com.toy.shop.dto.SearchParam;
 import com.toy.shop.dto.member.MemberDto;
 import com.toy.shop.dto.member.MemberSave;
 import com.toy.shop.dto.member.MemberUpdate;
 import com.toy.shop.service.member.MemberService;
-import com.toy.shop.utils.ConvertUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -20,18 +20,32 @@ public class MemberController {
     private final MemberService memberService;
 
     @GetMapping
-    public Page<MemberDto> findAll(@RequestBody SearchParam searchParam, Pageable pageable) {
-        return memberService.findAll(searchParam, pageable);
+    public ResponseEntity findAll(@RequestBody SearchParam searchParam, Pageable pageable) {
+        Page<MemberDto> members = memberService.findAll(searchParam, pageable);
+        return ResponseEntity.ok(members);
     }
 
-    @PostMapping("/add")
-    public Long save(@RequestBody MemberSave memberSave) {
-        return memberService.save(memberSave);
+    @GetMapping("/{id}")
+    public ResponseEntity findById(@PathVariable Long id) {
+        MemberDto member = memberService.findById(id);
+        return ResponseEntity.ok(member);
     }
 
-    @PutMapping("/{id}/update")
-    public Long update(@PathVariable Long id, MemberUpdate memberUpdate) {
+    @PostMapping
+    public ResponseEntity save(@RequestBody MemberSave memberSave) {
+        Long savedId = memberService.save(memberSave);
+        return ResponseEntity.ok(savedId);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity update(@PathVariable Long id, MemberUpdate memberUpdate) {
         memberService.update(id, memberUpdate);
-        return id;
+        return new ResponseEntity(HttpStatus.OK);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity delete(@PathVariable Long id) {
+        memberService.delete(id);
+        return new ResponseEntity(HttpStatus.OK);
     }
 }

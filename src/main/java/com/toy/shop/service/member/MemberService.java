@@ -33,9 +33,11 @@ public class MemberService {
                 .collect(Collectors.toList()), pageable, members.getTotalElements());
     }
 
-    public Member findById(Long id) {
-        return memberRepository.findById(id)
+    public MemberDto findById(Long id) {
+        Member member = memberRepository.findById(id)
                 .orElseThrow(IllegalArgumentException::new);
+
+        return new MemberDto(member);
     }
 
     @Transactional
@@ -48,7 +50,8 @@ public class MemberService {
 
     @Transactional
     public void update(Long id, MemberUpdate dto) {
-        Member member = findById(id);
+        Member member = memberRepository.findById(id)
+                .orElseThrow(IllegalArgumentException::new);
 
         Address address = new Address(dto.getZipCode(),
                 dto.getCity(), dto.getStreet());
@@ -56,5 +59,13 @@ public class MemberService {
         Grade grade = Grade.valueOf(dto.getGrade().toUpperCase());
 
         member.update(dto.getName(), dto.getPhoneNum(), address, grade);
+    }
+
+    @Transactional
+    public void delete(Long id) {
+        Member member = memberRepository.findById(id)
+                .orElseThrow(IllegalArgumentException::new);
+
+        member.delete();
     }
 }
