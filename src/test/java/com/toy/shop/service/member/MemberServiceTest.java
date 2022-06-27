@@ -7,6 +7,7 @@ import com.toy.shop.dto.member.MemberDto;
 import com.toy.shop.dto.member.MemberSave;
 import com.toy.shop.dto.member.MemberUpdate;
 import com.toy.shop.repository.member.MemberRepository;
+import com.toy.shop.service.MemberService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

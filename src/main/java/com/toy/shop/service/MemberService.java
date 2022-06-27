@@ -1,4 +1,4 @@
-package com.toy.shop.service.member;
+package com.toy.shop.service;
 
 import com.toy.shop.domain.Address;
 import com.toy.shop.domain.member.Grade;

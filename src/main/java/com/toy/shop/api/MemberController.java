@@ -4,7 +4,7 @@ import com.toy.shop.dto.SearchParam;
 import com.toy.shop.dto.member.MemberDto;
 import com.toy.shop.dto.member.MemberSave;
 import com.toy.shop.dto.member.MemberUpdate;
-import com.toy.shop.service.member.MemberService;
+import com.toy.shop.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

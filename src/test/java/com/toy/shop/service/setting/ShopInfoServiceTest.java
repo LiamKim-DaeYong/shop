@@ -3,6 +3,7 @@ package com.toy.shop.service.setting;
 import com.toy.shop.domain.setting.ShopInfo;
 import com.toy.shop.dto.setting.ShopInfoDto;
 import com.toy.shop.repository.setting.info.ShopInfoRepository;
+import com.toy.shop.service.ShopInfoService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;

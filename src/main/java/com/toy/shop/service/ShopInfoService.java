@@ -1,4 +1,4 @@
-package com.toy.shop.service.setting;
+package com.toy.shop.service;
 
 import com.toy.shop.domain.setting.ShopInfo;
 import com.toy.shop.dto.setting.ShopInfoDto;
