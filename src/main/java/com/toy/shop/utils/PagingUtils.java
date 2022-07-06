@@ -7,11 +7,9 @@ import lombok.NoArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.support.PageableExecutionUtils;
-import org.springframework.stereotype.Component;
 
 import java.util.List;
 
-@Component
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public final class PagingUtils {
 

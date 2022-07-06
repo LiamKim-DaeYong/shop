@@ -56,7 +56,7 @@ class MemberServiceTest {
     }
 
     @Test
-    public void passwordEncodingTest() throws Exception {
+    public void passwordEncodingTest() {
         //given
         MemberSave dto = new MemberSave();
         dto.setEmail("test@test.com");
